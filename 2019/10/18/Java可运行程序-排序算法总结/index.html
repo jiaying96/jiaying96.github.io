@@ -6,17 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | blog</title>
+  <title>Java可运行程序-排序算法总结 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="交换排序算法一、介绍 1、概念 就是根据序列中两个记录键值的比较结果来对换这两个记录在序列中的位置。 2、特点 将键值较大的记录向序列的尾部移动，键值较小的记录向序列的前部移动。 二、常用算法冒泡排序、快速排序说明 ：   以下方法最后结果均按照升序排列  用4,2,1,3,7,4,5,8,3,5序列进行测试  1、冒泡排序（1）基本思想在n个待排序数组中选取待排序数列中的第一个元素x与第二个元素">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;hello-world&#x2F;index.html">
+<meta property="og:title" content="Java可运行程序-排序算法总结">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93&#x2F;index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="交换排序算法一、介绍 1、概念 就是根据序列中两个记录键值的比较结果来对换这两个记录在序列中的位置。 2、特点 将键值较大的记录向序列的尾部移动，键值较小的记录向序列的前部移动。 二、常用算法冒泡排序、快速排序说明 ：   以下方法最后结果均按照升序排列  用4,2,1,3,7,4,5,8,3,5序列进行测试  1、冒泡排序（1）基本思想在n个待排序数组中选取待排序数列中的第一个元素x与第二个元素">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-18T08:40:01.490Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221191111666.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221191949728.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192035561.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192114294.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192251529.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192353999.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192402548.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192415115.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;2018122119253424.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192620749.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221192707141.png">
+<meta property="og:updated_time" content="2019-05-08T14:03:25.919Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20181221191111666.png">
   
     <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
   
@@ -152,39 +164,588 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java可运行程序-排序算法总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Java可运行程序-排序算法总结
     </h1>
   
 
         
-        <a href="/2019/10/18/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-18T08:40:01.490Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+        <a href="/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h1 id="交换排序算法"><a href="#交换排序算法" class="headerlink" title="交换排序算法"></a>交换排序算法</h1><h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p> 1、概念</p>
+<p>就是根据序列中两个记录键值的比较结果来对换这两个记录在序列中的位置。</p>
+<p>2、特点</p>
+<p>将键值较大的记录向序列的尾部移动，键值较小的记录向序列的前部移动。</p>
+<h2 id="二、常用算法"><a href="#二、常用算法" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>冒泡排序、快速排序<br>说明 ： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用4,2,1,3,7,4,5,8,3,5序列进行测试</li>
+</ol>
+<h2 id="1、冒泡排序"><a href="#1、冒泡排序" class="headerlink" title="1、冒泡排序"></a>1、冒泡排序</h2><p>（1）基本思想<br>在n个待排序数组中选取待排序数列中的第一个元素x与第二个元素y进行比较，如果x&gt;y则，将个元素交换位置，否则，选取第二个元素与第三个元素进行比较，以此类推，知道最后两个元素比较完成，则完成一趟排序，此时最后一个元素已经是这个序列中最大的一个元素，第二趟排序时只需在前n-1个元素中进行即可。<br>（2）代码实现</p>
+<pre><code>public class Test {
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    public static void bubbleSort(int[] arr) {
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            boolean flag = true; // 设置标记位，记录是否已经完成排序
+            for (int j = 0; j &lt; arr.length - i - 1; j++) {
+                if (arr[j] &gt; arr[j + 1]) { // 相邻位置依次进行比较
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    flag = false;       //排序还未完成标志位置为false
+                }
+            }
+            printArray(arr);
+            System.out.println(&quot;  &quot;);
+            if (flag) {             //当flag为true时表示已经完成排序
+                break;
+            }
+        }
+    }
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        bubbleSort(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221191111666.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="2、快速排序"><a href="#2、快速排序" class="headerlink" title="2、快速排序"></a>2、快速排序</h2><p>（1）基本思想<br>从待排序数组中选取一个元素作为关键字（这里选取待排序序列中的第一个元素作为关键字），角标为key，分别定义一个指向开始和结尾的指针l和h，如果l所指元素在h所指元素的前面，则从两端到中间将各个元素与关键字进行比较，如果height指向的元素小于等于关键字，则执行h–操作，直到l=h或者h所指元素小于关键字，如果l指向的元素大于等于关键字，则执行l++操作，直到l=h或者l指向的元素大于关键字，如果h找到小于关键字的元素并且l找到大于关键字的元素则将h和l指向的元素交换位置，然后继续从两边向中间进行比较，直到h和l指向同一个元素，将该元素与关键字交换位置，完成一趟排序，此时以关键字为界会将数组划分成两个区域，然后在分别对两段数组进行排序，直到待排序区域中只有一个元素，完成排序。<br>一句话总结，就是通过交换实现关键字左边的元素不大于关键字，关键字右边的元素不小于关键字。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+    //输出
+    static  void printArray(int a[]) {
+        int len = a.length;
+        for (int i = 0; i &lt; len; i++) {
+            System.out.print(a[i] + &quot;  &quot;);
+        }
+    }
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    }
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    //快速排序
+    public static void quickSort(int[] arr, int low, int height) {
+        int l = low;
+        int h = height;
+        int key = low;
+        while (l &lt; h) {
+            while (arr[key] &lt;= arr[h] &amp;&amp; l &lt; h) {
+                h--;
+            }
+            while (arr[key] &gt;= arr[l] &amp;&amp; l &lt; h) {
+                l++;
+            }
+            // 将小于关键字和大于关键字的元素交换位置
+            if (l &lt; h) {
+                swap(arr, l, h);
+                l++;
+                h--;
+            }
+        }
+        // 将关键字换到合适的位置
+        swap(arr, key, l);
+        // 以关键字为界限将待排序元素划分成 两个区域分别进行快速排序
+        if (low &lt; l - 1)
+            quickSort(arr, low, l - 1);
+        if (l + 1 &lt; height)
+            quickSort(arr, l + 1, height);
+        printArray(arr);
+        System.out.println(&quot; &quot;);
+
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[] = {4,2,1,3,7,4,5,8,3,5} ;
+        int low=0;
+        int height=intArray.length-1;
+        quickSort(intArray,low,height);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+
+    }
+}</code></pre><p><img src="https://img-blog.csdnimg.cn/20181221191949728.png" alt="在这里插入图片描述"><br>（3）运行结果</p>
+<p>(4)性能<br>①稳定性：不稳定<br>②时间复杂度：<br>平均性能O(nlogn) (n倍的log以2为底n的对数)<br>最坏情况O(n^2)</p>
+<h1 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h1><h2 id="一、介绍-1"><a href="#一、介绍-1" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>1、使用场景<br>有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序，这个时候就要用到一种新的排序方法——插入排序法。</p>
+<p>2、基本思想<br>插入排序的基本思想是：每步将一个待排序的纪录，按其关键码值的大小插入前面已经排序的文件中适当位置上，直到全部插入完为止。</p>
+<h2 id="二、常用算法-1"><a href="#二、常用算法-1" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>直接插入、折半插入、希尔排序</p>
+<p>说明： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用4,2,1,3,7,4,5,8,3,5序列进行测试</li>
+</ol>
+<h2 id="1、直接插入"><a href="#1、直接插入" class="headerlink" title="1、直接插入"></a>1、直接插入</h2><p>（1）基本思想<br>将待排序元素x与已排序元素从后向前依次比较，找到小于等于x的元素y的位置，将从y到x之间的元素（不包括x和y）依次后移一位，并将x插入到y元素的后面，即完成一趟排序，再用相同的方法继续完成对后面元素的排序操作即可。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void straightInsertionSort(int[] arr){
+        for(int i=1; i&lt;arr.length; i++){
+            if (arr[i] &lt; arr[i-1]) {    //与前面元素进行比较
+                int temp = arr[i];
+                arr[i] = arr[i-1];      //元素后移
+                int j = i-2;
+                while (j&gt;=0 &amp;&amp; temp &lt; arr[j]) { //找到合适的位置
+                    arr[j+1] = arr[j];
+                    j--;
+                }
+                arr[j+1] = temp;        //插入到合适的位置
+            }
+            printArray(arr);                 //每趟结束打印一次数组当前顺序
+            System.out.println(&quot; &quot;);
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        straightInsertionSort(intArray);
+        //printArray(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192035561.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="2、折半插入排序（二分插入排序）"><a href="#2、折半插入排序（二分插入排序）" class="headerlink" title="2、折半插入排序（二分插入排序）"></a>2、折半插入排序（二分插入排序）</h2><p>（1）基本思想<br>通过折半查找的方式找到待排序元素的合适位置，将相应的元素依次后移，然后再将待排序元素插入，即完成一趟排序操作，再用相同的方式完成对后面元素的排序操作即可。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void binaryInsertionSort(int[] arr){
+        for (int i = 1; i &lt; arr.length; i++) {
+            //待排序元素小于前面相邻元素，需要移动位置
+            if (arr[i] &lt; arr[i-1]) {
+                int temp = arr[i];
+                arr[i] = arr[i-1];
+                //用折半查找的方式找到合适的插入位置
+                int low = 0;
+                int height = i-2;
+                while(low &lt;= height){
+                    //不用(low+height）/2是为了防止low+height的值发生溢出
+                    int mid = low+(height-low)/2;
+                    if (temp &lt; arr[mid]) {
+                        height = mid-1;
+                    }else{
+                        low = mid +1;
+                    }
+                }
+                //将元素一次后移一位
+                for(int j=i-2; j&gt;=height+1; j--){
+                    arr[j+1] = arr[j];
+                }
+                arr[height+1] = temp;
+            }
+            printArray(arr);
+            System.out.println(&quot;  &quot;);
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        binaryInsertionSort(intArray);
+        //printArray(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+
+    }
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192114294.png" alt="在这里插入图片描述"></p>
+<p>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="3、希尔排序（缩小增量排序）"><a href="#3、希尔排序（缩小增量排序）" class="headerlink" title="3、希尔排序（缩小增量排序）"></a>3、希尔排序（缩小增量排序）</h2><p>（1）基本思想<br>将待排序元素以步长d分成若干组，距离为d的元素在同一组，并在组内进行直接插入排序，所有组都完成一次排序以后，缩小步长，并重复动作，直到步长d=1后完成排序。<br>这里初始步长设置为数组长度的一般，每完成一次排序后，步长变为原来的一半。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void ShellSort(int[] arr){
+        int d = arr.length/2;               //步长
+        while (d &gt;= 1) {
+            System.out.println(&quot;步长为：&quot;+d);
+            //每趟按照步长d进行直接插入排序
+            for (int i = d; i &lt; arr.length; i+=d) {
+                if (arr[i] &lt; arr[i-d]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i-d];
+                    int j = i-2*d;
+                    while(j&gt;=0 &amp;&amp; temp &lt; arr[j]){
+                        arr[j+d] = arr[j];
+                        j-=d;
+                    }
+                    arr[j+d] = temp;
+                }
+                printArray(arr);
+                System.out.println(&quot;  &quot;);
+            }
+            d /= 2;
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        ShellSort(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+ }</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192251529.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：不稳定<br>②时间复杂度：希尔排序的时效分析很难，有人在大量的试验基础上推出，当n在某个特定范围内，希尔排序所需的比较次数和移动次数约为n^1.3，比较次数和移动次数还依赖于步长因子序列的选取。目前还没有选取最好的步长因子序列的方法，步长因子有取奇数的，也有取质数的，最后一个步长因子必须是1。</p>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>一、介绍<br>基数排序（英语：Radix sort）是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。</p>
+<p>从低位关键码起，按关键码的不同值将序列中的记录“分配”到RADIX个队列（组）中，然后再“收集”，称之为一趟排序，第一趟之后，排序表中的记录已按最低位关键码有序，再次对最低位关键码进行一趟“分配”和“收集”如此直到对最高位关键码进行一趟“分配”和“收集”，则排序表按关键字有序。</p>
+<p>比如：对278、109、63、930、589、184、505、269、8、83进行排序<br>①因为是对10进制整数进行排序，为了方便我们以10为基数进行排序<br>②为了让位数保持一致，先将位数不够的在高位进行补零操作，变成以下数字：278、109、063、930、589、184、505、269、008、083。<br>③先按照个位数字进行分组，共有9组（0~9），结果如下<br>0：930<br>1：<br>2：<br>3：063、083<br>4：184<br>5：505<br>6：<br>7：<br>8：278、008<br>9：109、589、269<br>将分组后的数据按顺序进行收集：<br>930、063、083、184、505、278、008、109、589、269<br>④对上面收集后的数据按照十位进行分组，结果如下：<br>0：505、008、109<br>1：<br>2：<br>4：<br>5：<br>6：063、269<br>7：278<br>8：083、184、589<br>9：<br>将分组后的数据按顺序进行收集：<br>505、008、109、930、063、269、278、083、184、589<br>⑤对上面收集后的数据按照百位进行分组，结果如下：<br>0：008、063、083<br>1：109、184<br>2：269、278<br>3：<br>4：<br>5：505、589<br>6：<br>7：<br>8：<br>9：930<br>将分组后的数据按顺序进行收集：<br>008、063、083、109、184、269、278、505、589、930<br>到此我们已经得到了有序的数据序列</p>
+<p>二、算法实现</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192353999.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192402548.png" alt="在这里插入图片描述"></p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    /**
+     * 基数排序
+     * @param elements  待排序数组
+     * @param radix     基数
+     * @param bitNum    数据的位数
+     */
+    public static void RadixSort(MyElement[] elements, int radix, int bitNum){
+        int n = 1;
+        //初始化头指针数组
+        MyElementIndex[] heads = new MyElementIndex[radix];
+        for (int i = 0; i &lt; heads.length; i++) {
+            heads[i] = new MyElementIndex();
+        }
+        for(int i=0; i&lt;bitNum; i++){
+            //将数据按照关键字进行分组
+            for(int j=0; j&lt;elements.length; j++){
+                int k = elements[j].num/n%10;
+                if (heads[k].head == null) {
+                    heads[k].head = elements[j];
+                }else{
+                    heads[k].tail.next = elements[j];
+                }
+                heads[k].tail = elements[j];
+                heads[k].tail.next = null;
+            }
+            //将分组后的数据重新收集
+            int k = 0;
+            for(int j=0; j&lt;heads.length; j++){
+                while (heads[j].head != null) {
+                    elements[k++] = heads[j].head;
+                    heads[j].head = heads[j].head.next;
+                }
+            }
+            System.out.println(&quot;第&quot;+(i+1)+&quot;趟：&quot;);
+            for (int j = 0; j &lt; elements.length; j++) {
+                System.out.print(elements[j].num+&quot; &quot;);
+            }
+            System.out.println();
+            n *= 10;
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {278,109,63,930,589,184,505,269,8,83} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+
+        int num=intArray.length;
+        MyElement [] myElement=new MyElement[num];
+        for(int i=0;i&lt;num;i++){
+            myElement[i] = new MyElement();
+            myElement[i].num=intArray[i];
+            //myElement[i].next=null;
+        }
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        RadixSort(myElement,10,3);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+}</code></pre><p>三、运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192415115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>四、性能分析<br>稳定性：稳定<br>时间复杂度：分配一趟时间复杂度为O(n)，收集一趟时间复杂度为O(RADIX)，关键码为bitNum位，共需要bitNum趟，所以时间复杂度为O(bitNum*(n+RADIX))</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>一、介绍<br>1、概念<br>归并操作（merge），也叫归并算法，指的是将两个已经排序的序列合并成一个序列的操作。归并排序算法依赖归并操作。<br>归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
+<p>2、基本思想</p>
+<p>只有一个元素的表总是有序的，所以将表arr[1…n]，看做n个长度len=1的有序子表，对相邻的两个有序子表两两合并到temp[1…n]中，使之生成表长len=2的有序表，在进行两两合并，直到最后生成表长为n的有序表，整个过程需要log2n（log以2为底n的对数）趟。</p>
+<p>归并过程中有个需要解决的问题就是分组问题，因为表长不总是2的整数幂，这样最后一组就不能保证是表长为len的有序表，也不能保证每趟排序中都有偶数个有序子表。</p>
+<p>二、算法实现</p>
+<pre><code>public class Test {
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    /**
+     * 归并排序 需要考虑三种情况 1、正好可以分成整个的偶数组 2、可以分成偶数组，但是最后一组中元素数量不足 3、只能分成奇数组
+     *
+     * @param arr
+     */
+    public static void mergeSort(int[] arr) {
+        for (int i = 1; i &lt; arr.length; i*=2) {
+            mergePass(arr, i);
+        }
+    }
+
+    /**
+     * 从arr中归并到temp中
+     *
+     * @param arr
+     * @param len 本趟归并中有序表的长度
+     */
+    public static void mergePass(int[] arr, int len) {
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;len:&quot;+len);
+
+        int i;
+        int[] temp = new int[arr.length];
+        for (i = 0; i + 2 * len-1 &lt; arr.length; i = i + 2 * len) {
+            merge(arr, temp, i, i + len - 1, i + 2 * len - 1);// 对两个长度为len的表进行合并
+        }
+        if (i + len - 1 &lt; arr.length - 1) {// 剩余长度不够len，当剩余的总个数大于len
+            merge(arr, temp, i, i + len - 1, arr.length - 1);
+        } else if (i &lt;= arr.length - 1) {// 剩余长度不足len
+            while (i &lt;= arr.length - 1) {
+                temp[i] = arr[i++];
+            }
+        }
+        System.arraycopy(temp, 0, arr, 0, arr.length);
+        printArray(arr);
+    }
+
+    //对两个有序子表进行归并
+    public static void merge(int[] arr, int[] temp, int low, int mid, int height) {
+        int i = low;
+        int j = mid + 1;
+        int k = low;
+        while (i &lt;= mid &amp;&amp; j &lt;= height) {
+            if (arr[i] &gt; arr[j]) {
+                temp[k++] = arr[j++];
+            } else {
+                temp[k++] = arr[i++];
+            }
+        }
+        while (i &lt;= mid) {
+            temp[k++] = arr[i++];
+        }
+        while (j &lt;= height) {
+            temp[k++] = arr[j++];
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {9,4,2,1,3,7,4,5,8,3,10,0} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        mergeSort(intArray);//归并排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>三、运行结果<br><img src="https://img-blog.csdnimg.cn/2018122119253424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>四、性能分析<br>稳定性：稳定<br>时间复杂度：O(nlogn) (n倍的log以2为底n的对数)</p>
+<h1 id="选择排序算法"><a href="#选择排序算法" class="headerlink" title="选择排序算法"></a>选择排序算法</h1><h2 id="一、介绍-2"><a href="#一、介绍-2" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>1、基本思想<br>每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。</p>
+<p>2、特点<br>选择排序每次交换一对元素，它们当中至少有一个将被移到其最终位置上，因此对n个元素的表进行排序总共进行至多n-1次交换。</p>
+<h2 id="二、常用算法-2"><a href="#二、常用算法-2" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>说明 ： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用8,5,2,6,9,3,1,4,0,7序列进行测试</li>
+</ol>
+<h2 id="1、简单选择排序"><a href="#1、简单选择排序" class="headerlink" title="1、简单选择排序"></a>1、简单选择排序</h2><p>（1）基本思想<br>在对n个元素进行一次遍历，找到其中最小的元素放到最前面，然后在剩下的n-1个操作中重复此操作，直到只剩下一个元素。<br>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
+
+    }
+
+    public static void simpleSelectionSort(int[] arr) {
+        for (int i = 0; i &lt; arr.length-1; i++) {
+            int script = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                if (arr[script] &gt; arr[j]) {
+                    script = j; // 记录值最小的元素下标
+                }
+            }
+            if (script != i) { // 将最小的元素放到最前面
+                swap(arr, script, i);
+            }
+            System.out.println(&quot;  &quot;);
+            printArray(arr);
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {8,5,2,6,9,3,1,4,0,7} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        simpleSelectionSort(intArray);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192620749.png" alt="在这里插入图片描述"></p>
+<h2 id="2、堆排序"><a href="#2、堆排序" class="headerlink" title="2、堆排序"></a>2、堆排序</h2><p>（1）基本思想<br>将n个元素建成大顶堆，然后将堆顶元素和最后一个元素交换位置，此时最大的元素已经到了预定的位置，再将剩下的n-1一个元素重新调整成为大顶堆，直到最后一个元素调整到相应的位置。<br>需要解决的问题： </p>
+<ul>
+<li>n个待排序元素建成堆； </li>
+<li>输出堆顶元素后，调整剩余n-1 个元素，使其成为一个新堆。</li>
+</ul>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
+
+    }
+
+    /**
+     * 堆排序
+     *
+     * @param arr
+     */
+    public static void heapSort(int[] arr) {
+        buildHeap(arr, arr.length);
+        printArray(arr);
+        for (int i = arr.length-1; i &gt; 0; i--) {
+            // 将堆顶元素与最后一个元素交换
+            swap(arr, 0, i);
+            //在剩下的n-1个元素重新调整成大顶堆
+            heapAdjust(arr, 0, i);
+            System.out.println(&quot;  &quot;);
+            printArray(arr);
+
+        }
+    }
+
+    /**
+     * 调整成大顶堆
+     *
+     * @param arr
+     * @param root
+     */
+    public static void heapAdjust(int[] arr, int root, int length) {
+        int child = root * 2 + 1; // 数组从0角标开始时，左孩子的角标
+        while (child &lt; length) {// 当左孩子不是最后一个节点
+            // 选取左右孩子中较大的元素和父节点的值进行交换
+            if (child+1&lt;length &amp;&amp; arr[child] &lt; arr[child + 1]) {//有右孩子,且右孩子的值大于左孩子
+                child++;
+            }
+            if (arr[child] &gt; arr[root]) { // 较大的子元素的值大于父元素
+                swap(arr, child, root);
+                root = child;
+                child = root * 2 + 1;
+            } else { // 不需要调整，跳出循环
+                break;
+            }
+        }
+    }
+
+    /**
+     * 建堆
+     * @param arr
+     * @param length
+     */
+    public static void buildHeap(int[] arr, int length) {
+        for (int i = (length - 2) / 2; i &gt;= 0; i--) {
+            heapAdjust(arr, i, length);
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {8,5,2,6,9,3,1,4,0,7} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        heapSort(intArray);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192707141.png" alt="在这里插入图片描述"></p>
+<p>参考博客<a href="https://blog.csdn.net/qq_30496695" target="_blank" rel="noopener">https://blog.csdn.net/qq_30496695</a></p>
 
       
 
@@ -264,7 +825,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -278,15 +839,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8---TensorFlow%E5%AE%9E%E6%88%984.2%E8%8A%82/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Tensorflow实现自编码器---TensorFlow实战4.2节
+          LeetCode 26 Remove Duplicates from Sorted Array
         
       </div>
     </a>
   
+  
+    <a href="/2019/10/18/Java%20run()%E4%B8%8Estart()%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java run()与start()区别</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

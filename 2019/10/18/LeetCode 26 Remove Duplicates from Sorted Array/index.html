@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | blog</title>
+  <title>LeetCode 26 Remove Duplicates from Sorted Array | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modifyin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;hello-world&#x2F;index.html">
+<meta property="og:title" content="LeetCode 26 Remove Duplicates from Sorted Array">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array&#x2F;index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modifyin">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-18T08:40:01.490Z">
+<meta property="og:updated_time" content="2019-05-08T14:03:24.813Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
@@ -152,39 +152,44 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-LeetCode 26 Remove Duplicates from Sorted Array" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      LeetCode 26 Remove Duplicates from Sorted Array
     </h1>
   
 
         
-        <a href="/2019/10/18/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-18T08:40:01.490Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+        <a href="/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.953Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>Example 1:</p>
+<p>Given nums = [1,1,2],</p>
+<p>Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.</p>
+<p>It doesn’t matter what you leave beyond the returned length.<br>Example 2:</p>
+<p>Given nums = [0,0,1,1,1,2,2,3,3,4],</p>
+<p>Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.</p>
+<p>It doesn’t matter what values are set beyond the returned length.</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>虽然函数只返回不同元素的个数，但是该题目从nums数组和不相同元素个数两方面看结果是否正确。</strong></p>
+<p>从第一个元素（此时i=1）开始比较，若它与nuns[count]（初始时候count=0,nuns[count]即第0个元素)不相同，计数器（count）+1同时将该新值（与之前的值不同）给nums[count],原因有</p>
+<ul>
+<li>if条件判断是用nuns[count]与数组遍历中下一个元素比较，将nums[i]赋值给nums[count]，保证了下一次比较</li>
+<li>将nums[i]赋值给nums[count]，保证了最后nums数组是正确的，即nums中存放的是与之前不同的值，即没有重复元素的值</li>
+</ul>
+<p>i++，重复上述过程，可以得到正确结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">        if(nums.length==0)</span><br><span class="line">            return 0;</span><br><span class="line">        int count=0;</span><br><span class="line">        for(int i=1;i&lt;nums.length;i++)&#123;</span><br><span class="line">            if(nums[i]!=nums[count])&#123;</span><br><span class="line">                //如果不相等，计数器加1</span><br><span class="line">                count++;</span><br><span class="line">                //把这个新值给nums[count],因为if条件判断是用nuns[count]与数组遍历中下一个元素比较</span><br><span class="line">                nums[count]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return count+1;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
 
@@ -264,7 +269,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -278,15 +283,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8---TensorFlow%E5%AE%9E%E6%88%984.2%E8%8A%82/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/10/18/LeetCode%2027%20Remove%20Element/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Tensorflow实现自编码器---TensorFlow实战4.2节
+          LeetCode 27 Remove Element
         
       </div>
     </a>
   
+  
+    <a href="/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java可运行程序-排序算法总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

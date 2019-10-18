@@ -151,40 +151,185 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Tensorflow实现卷积神经网络---TensorFlow实战5.2节" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/18/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C---TensorFlow%E5%AE%9E%E6%88%985.2%E8%8A%82/">Tensorflow实现卷积神经网络---TensorFlow实战5.2节</a>
     </h1>
   
 
         
-        <a href="/2019/10/18/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-18T08:40:01.490Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+        <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C---TensorFlow%E5%AE%9E%E6%88%985.2%E8%8A%82/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:04.017Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <pre><code>from tensorflow.examples.tutorials.mnist import input_data
+import tensorflow as tf
+mnist = input_data.read_data_sets(&quot;MNIST_data/&quot;, one_hot=True)
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+# 设置默认session
+sess = tf.InteractiveSession()
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+# 定义初始化函数
+&apos;&apos;&apos;
+tf.truncated_normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None) 
+参数：
+shape: 一维的张量，也是输出的张量。   
+mean: 正态分布的均值。   
+stddev: 正态分布的标准差。
+dtype: 输出的类型。   
+seed: 一个整数，当设置之后，每次生成的随机数都一样。   
+name: 操作的名字。
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+从截断的正态分布中输出随机值。 
+生成的值服从具有指定平均值和标准偏差的正态分布，如果生成的值大于平均值2个标准偏差的值则丢弃重新选择。
+&apos;&apos;&apos;
+# 给权重初始化一些随机的噪声来打破完全对称  比如截断的正态分布噪声 标准差设置为0.1
+def weight_variable(shape):
+    initial = tf.truncated_normal(shape, stddev=0.1)
+    return tf.Variable(initial)
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+&apos;&apos;&apos;
+constant(value, dtype=None, shape=None, name=&quot;Const&quot;, verify_shape=False)
+value是必须的，可以是一个数值，也可以是一个列表
+后面四个参数可写可不写
+dtype表示数据类型，一般可以是tf.float32, tf.float64等
+shape表示张量的“形状”，即维数以及每一维的大小。如果指定了第三个参数，当第一个参数value是数字时，张量的所有元素都会用该数字填充：
+name可以是任何内容，主要是字符串就行
+verify_shape默认为False，如果修改为True的话表示检查value的形状与shape是否相符，如果不符会报错
+&apos;&apos;&apos;
+# 使用ReLU 给偏置增加一些小的正值（0.1）来避免死亡节点
+def bias_variable(shape):
+    initial = tf.constant(0.1, shape=shape)
+    return tf.Variable(initial)
+
+
+
+
+&apos;&apos;&apos;
+tf.nn.conv2d()是Tensorflow的二维卷积函数 
+def conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None,data_format=None, name=None)
+input：输入
+filter：卷积的参数  [5,5,1,32] 
+        前两个数字代表卷积核的尺寸 
+        第三个数字代表有多少个channel（只有灰度单色所以为1，如果是彩色的RGB，channel应该是3） 
+        第四个是卷积核的数量（也就是这个卷积层会提取多少类的特征）
+strides:卷积模板的步长  1代表不会遗漏的划过图片的每一个点 
+padding：边界的处理方式：SAME代表边界加上padding让卷积的输入和输出保持相同的尺寸（SAME）
+&apos;&apos;&apos;
+def conv2d(x, W):
+    return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding=&quot;SAME&quot;)
+
+
+
+&apos;&apos;&apos;
+tf.nn.max_pool是Tensorflow的最大池化函数
+最大池化层会保留原始像素块中灰度最高的那一个像素 即保留最显著的特征
+value：需要池化的输入，一般池化层接在卷积层后面，所以输入通常是feature map，依然是[batch, height, width, channels]这样的shape
+ksize：池化窗口的大小，取一个四维向量，一般是[1, height, width, 1]，因为我们不想在batch和channels上做池化，所以这两个维度设为了1
+strides：和卷积类似，窗口在每一个维度上滑动的步长，一般也是[1, stride,stride, 1]
+padding：和卷积类似，可以取&apos;VALID&apos; 或者&apos;SAME&apos;
+
+返回一个Tensor，类型不变，shape仍然是[batch, height, width, channels]这种形式
+&apos;&apos;&apos;
+#使用2*2的最大池化 即将一个2*2的像素块降为1*1的像素块
+#因为希望整体上缩小图片尺寸，因此池化层的strides设置为横竖两个方向以2为步长
+def max_pool_2x2(x):
+    return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding=&quot;SAME&quot;)
+
+x = tf.placeholder(tf.float32,[None, 784])#特征
+y_ = tf.placeholder(tf.float32, [None, 10])#真实的label
+
+&apos;&apos;&apos;
+卷积神经网络会用到空间结构信息，需要将1D的输入向量转为2D的图片结构 1*784转为原始的28*28 
+[-1, 28, 28, 1]中第一个1表示样本数量不固定 最后一个1代表颜色通道数量
+tf.reshape是tensor的变形函数
+&apos;&apos;&apos;
+x_image = tf.reshape(x, [-1, 28, 28, 1])
+
+#第一个卷积层
+W_conv1 = weight_variable([5, 5, 1, 32])  #卷积核尺寸5*5 颜色通道是1 卷积核个数为32
+b_conv1 = bias_variable([32])
+h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)  #使用从conv2函数进行卷积操作 加上偏置  再使用RELU激活函数进行非线性处理
+h_pool1 = max_pool_2x2(h_conv1)  #最大池化函数max_pool_2x2对卷积的输出结果进行池化操作
+
+#第二个卷积层   卷积核个数为64
+W_conv2 = weight_variable([5, 5, 32, 64])
+b_conv2 = bias_variable([64])
+h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+h_pool2 = max_pool_2x2(h_conv2)
+
+W_fc1 = weight_variable([7 * 7 * 64, 1024])
+b_fc1 = bias_variable([1024])
+h_pool2_flat = tf.reshape(h_pool2, [-1, 7 * 7 * 64]) #变形转换为1D的向量
+h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)  #建立一个全连接层 隐含节点数为1024  再使用RELU激活函数
+
+keep_prob = tf.placeholder(tf.float32)
+h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)  #减轻过拟合 使用Dropout层
+
+
+&apos;&apos;&apos;
+过拟合：模型准确率在训练集上提高但是在测试集下降 
+使用Dropout层：通过一个placeholder传入keep_prob比率来控制
+训练的时候，随机丢弃一部分来减轻过拟合，预测时保留全部数据来追求最好的性能预测
+&apos;&apos;&apos;
+W_fc2 = weight_variable([1024, 10])
+b_fc2 = bias_variable([10])
+#dropout层的输出连接一个softmax层，得到最后的概率输出
+y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
+#cross_entropy为损失函数 优化器Adam  较小的学习速率1e-4
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1]))
+train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+
+
+&apos;&apos;&apos;
+在测试集或者验证集上对准确率进行测评，本例是在测试集
+（1）在对模型的准确率进行验证
+tf.argmax：从一个tensor中寻找最大值的序号 
+tf.argmax(y_conv, 1)求该样本在各个预测数字中概率最大的那一个 
+tf.argmax(y_, 1)是样本的真实数字类别
+tf.equal判断预测的数字类别是否是正确的类别，最后返回计算分类是否正确的操作correct_prediction
+&apos;&apos;&apos;
+correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
+
+
+&apos;&apos;&apos;
+（2）统计全部预测的accuracy 
+先用tf.cast将之前correct_prediction输出的bool值转换为float32，再求平均
+&apos;&apos;&apos;
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+#训练过程
+&apos;&apos;&apos; 全局参数初始化器，直接执行run方法&apos;&apos;&apos;
+tf.global_variables_initializer().run()
+
+
+&apos;&apos;&apos;  
+设置训练时的dropout=0.5，随机抽取50个样本构成一个mini-batch，共进行20000次迭代训练，参与训练的样本数量为100万（20000*50）
+每100次训练，对准确率进行一次测评
+参数keep_prob的意思是:留下的神经元的概率,如果keep_prob为0的话, 就是让所有的神经元都失活
+&apos;&apos;&apos;
+for i in range(20000):
+    batch = mnist.train.next_batch(50)
+    if i % 100 == 0:
+        train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1], keep_prob: 1.0})
+        print(&quot;step %d, training accuracy %g&quot; % (i, train_accuracy))
+    train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+
+
+&apos;&apos;&apos;
+全部训练完成后将测试数据的特征和label输入测评流程accuracy,计算模型在测试集上的准确率，再将结果打印出来
+&apos;&apos;&apos;
+print(&quot;test accuracy %g&quot; % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))</code></pre>
       
 
       
@@ -196,7 +341,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/18/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C---TensorFlow%E5%AE%9E%E6%88%985.2%E8%8A%82/">展开全文 >></a>
         </p>
       
 
@@ -226,6 +371,1448 @@
 
 
   
+    <article id="post-Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82/">Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:04.003Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mnist数据集下载：<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">http://yann.lecun.com/exdb/mnist/</a></p>
+<pre><code>from tensorflow.examples.tutorials.mnist import input_data
+
+# 导入 MNIST 数据
+mnist = input_data.read_data_sets(&quot;MNIST_data/&quot;, one_hot=True)
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 查看数据集情况         
+#train训练集 test测试集  validation验证集
+#                                   样本数  多少维特征
+print(mnist.train.images.shape)      #(55000, 784)     图像是28px*28px  这28个点展开成一维的结果为28*28=784
+print(mnist.train.labels.shape)      #(55000, 10)
+print(mnist.test.images.shape)       #(10000, 784)
+print(mnist.test.labels.shape)       #(10000, 10)
+print(mnist.validation.images.shape) #(5000, 784)
+print(mnist.validation.labels.shape) #(5000, 10)
+
+&apos;&apos;&apos; 
+训练数据的特征：是一个55000*784的Tensor    
+55000是第一个维度，是图片的编号     784是第二个维度，是图片中像素点的编号
+训练数据Label的特征：是一个55000*10的Tensor    
+55000是第一个维度，是图片的编号     10是第二个维度，有10个种类（0-9），只有一个值是1，其余为0 数值i代表下标为i对应的位置为1
+
+
+多分类任务：Softmax Regression模型 原理：将可以判定为某类的特征相加，将这些特征转化为判定这一类的概率
+
+&apos;&apos;&apos;
+
+#保存的图片路径
+picPath=&apos;images&apos;
+# 打印训练集的前10张图片
+l = len(mnist.train.images[1])
+# 开平方  l_为28
+l0 = int(np.sqrt(l))
+
+#图片
+images = mnist.train.images
+# 标签
+labels = mnist.train.labels
+
+for i in range(10):
+    plt.subplot(2, 5, i + 1)
+    # 显示图片 imshow
+    plt.imshow(images[i].reshape(l0, l0))
+    # 添加标题为对应的label
+    # np.where 返回对应的索引
+    plt.title(int(np.where(labels[i] == 1)[0]))
+    # 保存 imsave
+    picName = str(i + 1) + &apos;.jpg&apos;
+    plt.imsave(picPath + &quot;/&quot; + picName, images[i].reshape((l0, l0)))
+plt.show()
+
+
+
+
+&apos;&apos;&apos; 在训练集上训练模型，在验证集上检验效果并决定何时完成训练，在测试集上评测模型的效果&apos;&apos;&apos; 
+
+
+&apos;&apos;&apos; InteractiveSession方法将这个session注册为默认的session    ！不同session之间的数据与运算应该是相对独立的&apos;&apos;&apos; 
+sess = tf.InteractiveSession()
+
+&apos;&apos;&apos; palceholde为输入数据的地方 tf.float32是数据类型  [None, 784]None表示不限制条数的输入 784代表每条输入是一个784维度的向量&apos;&apos;&apos; 
+x = tf.placeholder(tf.float32, [None, 784])  
+
+&apos;&apos;&apos; 
+存储数据的Tensor一旦使用掉就会消失，但是用来存储模型参数的Variable在模型训练迭代中是持久化的，长期存在并且在每轮迭代中被更新
+Variable用来存储模型参数
+&apos;&apos;&apos; 
+W = tf.Variable(tf.zeros([784, 10]))
+b = tf.Variable(tf.zeros([10]))
+
+&apos;&apos;&apos; 
+1.定义算法公式 就是神经网络前向传播（forward）时的计算
+算法Softmax Regression
+matmul为矩阵乘法  y=softmax(Wx+b)  
+&apos;&apos;&apos;   
+y = tf.nn.softmax(tf.matmul(x, W) + b)
+
+
+
+&apos;&apos;&apos; 
+2.定义loss  损失函数（loss）为cross-entropy
+
+palceholde为输入数据的地方 tf.float32是数据类型  [None, 784]None表示不限制条数的输入 10代表每条输入是一个10维度的向量
+输入是真实的label(y_ ) ,用来计算损失函数cross-entropy 即loss
+H=-求和（yi_log(yi)） 
+tf.reduce_mean用来对每个batch数据结果求均值
+reduction_indices参数，表示函数的处理维度。当没有这个参数时取默认值None，将把input_tensor降到0维，也就是一个数
+reduction_indices=[1]代表横向压缩成一个数
+&apos;&apos;&apos;
+y_ = tf.placeholder(tf.float32, [None, 10])
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+&apos;&apos;&apos;  
+3.选定优化器，并制定优化器优化loss
+优化算法采用随机梯度下降SGD（Stochastic Gradient Descent）
+定义好优化算法后，Tensorflow根据计算图自动求导，并根据反向传播算法进行训练，在每一轮迭代时更显参数来减小loss值
+0.5为设置的学习率 优化目标设定为cross-entropy          
+&apos;&apos;&apos;  
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+&apos;&apos;&apos; 全局参数初始化器，直接执行run方法&apos;&apos;&apos; 
+tf.global_variables_initializer().run()
+&apos;&apos;&apos;  
+4.迭代的对数据进行训练
+随机抽取100个样本构成一个mini-batch,并feed给palceholder,调用train_step对这些样本进行训练
+随机梯度下降：使用一小部分样本进行训练（每次使用全部样本是传统的梯度下降）
+
+why随机梯度下降?
+如果每次都使用全部样本，计算量太大，有时也不容易跳出局部最优，只使用一小部分进行随机梯度下降，绝大部分比使用全部样本训练的收敛速度快很多
+&apos;&apos;&apos;
+for i in range(1000):
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+    train_step.run({x: batch_xs, y_: batch_ys})
+
+&apos;&apos;&apos;
+5.在测试集或者验证集上对准确率进行测评，本例是在测试集
+
+（1）在对模型的准确率进行验证
+tf.argmax：从一个tensor中寻找最大值的序号 
+tf.argmax(y, 1)求该样本在各个预测数字中概率最大的那一个 
+tf.argmax(y_, 1)是样本的真是数字类别
+tf.equal判断预测的数字类别是否是正确的类别，最后返回计算分类是否正确的操作correct_prediction
+
+注：
+Tensorflow中的计算可以表示为一个有向图（或计算图），每一个运算操作作为一个节点，节点与节点之间的连接成为边
+在计算图的边中流动（flow）的数据称为张量（tensor）
+&apos;&apos;&apos;
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+&apos;&apos;&apos;
+（2）统计全部预测的accuracy 
+先用tf.cast将之前correct_prediction输出的bool值转换为float32，再求平均
+&apos;&apos;&apos;
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+&apos;&apos;&apos;
+（3）将测试数据的特征和labe输入测评流程accuracy,计算模型在测试集上的准确率，再将结果打印出来
+accuracy.eval:
+在一个Seesion里面“评估”tensor的值（其实就是计算），首先执行之前的所有必要的操作来产生这个计算这个tensor需要的输入，
+然后通过这些输入产生这个tensor。在激发tensor.eval()这个函数之前，tensor的图必须已经投入到session里面，
+或者一个默认的session是有效的，或者显式指定session.
+&apos;&apos;&apos;
+print(accuracy.eval({x: mnist.test.images, y_: mnist.test.labels}))</code></pre><p><img src="https://img-blog.csdnimg.cn/20190110115848430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190110115911858.png" alt="在这里插入图片描述"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-tensorboard生成的网址打不开的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/tensorboard%E7%94%9F%E6%88%90%E7%9A%84%E7%BD%91%E5%9D%80%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">tensorboard生成的网址打不开的解决方法</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/tensorboard%E7%94%9F%E6%88%90%E7%9A%84%E7%BD%91%E5%9D%80%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.994Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>按照某教程学习使用tensorboard时</p>
+<p>代码：</p>
+<pre><code>import tensorflow as tf
+
+def add_layer(inputs, in_size, out_size, activation_function=None):
+    # add one more layer and return the output of this layer
+    with tf.name_scope(&apos;layer&apos;):
+        with tf.name_scope(&apos;weights&apos;):
+            Weights = tf.Variable(tf.random_normal([in_size, out_size]), name=&apos;W&apos;)
+        with tf.name_scope(&apos;biases&apos;):
+            biases = tf.Variable(tf.zeros([1, out_size]) + 0.1, name=&apos;b&apos;)
+        with tf.name_scope(&apos;Wx_plus_b&apos;):
+            Wx_plus_b = tf.add(tf.matmul(inputs, Weights), biases)
+        if activation_function is None:
+            outputs = Wx_plus_b
+        else:
+            outputs = activation_function(Wx_plus_b, )
+        return outputs
+
+
+# define placeholder for inputs to network
+with tf.name_scope(&apos;inputs&apos;):
+    xs = tf.placeholder(tf.float32, [None, 1], name=&apos;x_input&apos;)
+    ys = tf.placeholder(tf.float32, [None, 1], name=&apos;y_input&apos;)
+
+# add hidden layer
+l1 = add_layer(xs, 1, 10, activation_function=tf.nn.relu)
+# add output layer
+prediction = add_layer(l1, 10, 1, activation_function=None)
+
+# the error between prediciton and real data
+with tf.name_scope(&apos;loss&apos;):
+    loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys - prediction),
+                                        reduction_indices=[1]))
+
+with tf.name_scope(&apos;train&apos;):
+    train_step = tf.train.GradientDescentOptimizer(0.1).minimize(loss)
+
+sess = tf.Session()
+
+# tf.train.SummaryWriter soon be deprecated, use following
+if int((tf.__version__).split(&apos;.&apos;)[1]) &lt; 12 and int((tf.__version__).split(&apos;.&apos;)[0]) &lt; 1:  # tensorflow version &lt; 0.12
+    writer = tf.train.SummaryWriter(&apos;logs/&apos;, sess.graph)
+else: # tensorflow version &gt;= 0.12
+    writer = tf.summary.FileWriter(&quot;logs/&quot;, sess.graph)
+
+# tf.initialize_all_variables() no long valid from
+# 2017-03-02 if using tensorflow &gt;= 0.12
+if int((tf.__version__).split(&apos;.&apos;)[1]) &lt; 12 and int((tf.__version__).split(&apos;.&apos;)[0]) &lt; 1:
+    init = tf.initialize_all_variables()
+else:
+    init = tf.global_variables_initializer()
+sess.run(init)</code></pre><p><img src="https://img-blog.csdnimg.cn/20190109154947548.png" alt="在这里插入图片描述"><br>生成logs文件夹</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109155044476.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/2019010915411348.png" alt="在这里插入图片描述"><br>遇到<br><img src="https://img-blog.csdnimg.cn/20190109154339543.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>**</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用命令：tensorboard –logdir logs –host=127.0.0.1</p>
+<p><img src="https://img-blog.csdnimg.cn/20190109154440198.png" alt="在这里插入图片描述"></p>
+<p>得到效果：<br><img src="https://img-blog.csdnimg.cn/20190109154510782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/tensorboard%E7%94%9F%E6%88%90%E7%9A%84%E7%BD%91%E5%9D%80%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Scrapy  Demo遇到的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/Scrapy%20%20Demo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">Scrapy  Demo遇到的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/Scrapy%20%20Demo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>环境：win10 python3.6<br>scrapy环境：<br>pip install scrapy</p>
+<h2 id="！！！windows平台需要依赖pywin32：-pip-install-pywin32"><a href="#！！！windows平台需要依赖pywin32：-pip-install-pywin32" class="headerlink" title="！！！windows平台需要依赖pywin32： pip install pywin32"></a>！！！windows平台需要依赖pywin32： pip install pywin32</h2><p>（<a href="https://github.com/mhammond/pywin32）" target="_blank" rel="noopener">https://github.com/mhammond/pywin32）</a><br><img src="https://img-blog.csdnimg.cn/20190115212954992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>详细操作参考：Scrapy入门简介及Demo<br><a href="https://www.jianshu.com/p/0c0759bc3d27" target="_blank" rel="noopener">https://www.jianshu.com/p/0c0759bc3d27</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/Scrapy%20%20Demo%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode 69：Sqrt(x)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/LeetCode%2069%EF%BC%9ASqrt(x)/">LeetCode 69：Sqrt(x)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/LeetCode%2069%EF%BC%9ASqrt(x)/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.979Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景知识：牛顿迭代法"><a href="#背景知识：牛顿迭代法" class="headerlink" title="背景知识：牛顿迭代法"></a>背景知识：牛顿迭代法</h2><p>快速寻找平方根可以很有效地求出根号n的近似值：首先随便猜一个近似值x，然后不断令x等于x和n/x的平均数，迭代个六七次后x的值就已经相当精确了。<br>    例如，我想求根号2等于多少。假如我猜测的结果为4，虽然错的离谱，但你可以看到使用牛顿迭代法后这个值很快就趋近于根号2了：</p>
+<p>(       4  + 2/   4     ) / 2 = 2.25<br>(    2.25  + 2/   2.25  ) / 2 = 1.56944..<br>( 1.56944..+ 2/1.56944..) / 2 = 1.42189..<br>( 1.42189..+ 2/1.42189..) / 2 = 1.41423..</p>
+<p><img src="https://img-blog.csdnimg.cn/20190120124127670.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>经过(xi, f(xi))这个点的切线方程为：  f(x) = f(xi) + f’(xi)(x - xi)<br>其中f’(x)为f(x)的导数。<br>令切线方程等于0，即可求出xi+1=xi - f(xi) / f’(xi)。<br>f(x)=x&sup2;-n,f’(x)=2x代入后继续化简<br>    xi+1<br>=xi - f(xi) / f’(xi)<br>=xi - (xi&sup2;- n) / (2xi)<br>= xi - xi / 2 + n / (2xi)<br>= xi / 2 + n / 2xi<br>= (xi + n/xi) / 2<br>故迭代公式为：<font face="times new roman" color=red size=4>xi+1= (xi + n/xi) / 2</font></p>
+<p>参考文章：<br><a href="http://www.matrix67.com/blog/archives/361" target="_blank" rel="noopener">http://www.matrix67.com/blog/archives/361</a><br><a href="https://www.cnblogs.com/qlky/p/7735145.html" target="_blank" rel="noopener">https://www.cnblogs.com/qlky/p/7735145.html</a></p>
+<h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>Implement int sqrt(int x).<br>Compute and return the square root of x, where x is guaranteed to be a non-negative integer.</p>
+<p>Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.</p>
+<p>Example 1:</p>
+<p>Input: 4<br>Output: 2<br>Example 2:</p>
+<p>Input: 8<br>Output: 2<br>Explanation: The square root of 8 is 2.82842…, and since<br>             the decimal part is truncated, 2 is returned.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>class Solution {
+    public int mySqrt(int x) {
+       long r = x ;//初始化数字为x
+       while (r*r &gt; x)   //当r*r=x时候r为所求  因为初始化r=x 所以r*r&gt;x  当r*r&lt;=x时候退出循环
+          r = (r + x/r) / 2; //利用牛顿迭代法的迭代公式进行迭代
+       return (int) r;//返回结果
+    }
+}</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/LeetCode%2069%EF%BC%9ASqrt(x)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode 67：Add Binary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/LeetCode%2067%EF%BC%9AAdd%20Binary/">LeetCode 67：Add Binary</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/LeetCode%2067%EF%BC%9AAdd%20Binary/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.969Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>Given two binary strings, return their sum (also a binary string).<br>The input strings are both non-empty and contains only characters 1 or 0.</p>
+<p>Example 1:<br>Input: a = “11”, b = “1”<br>Output: “100”</p>
+<p>Example 2:<br>Input: a = “1010”, b = “1011”<br>Output: “10101”</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>获取两个字符串的长度下标范围（0~length-1），初始化进位为0,从两个字符串的最后一位开始，判断是否移动到两个字符串当前位置都没有数字，没有则停止，若a或b还有数字，则初始sum为carrry,若某字符串当前位有数字，则加到sum，指针位置向前移动,sum除以2余数附加到StringBuilder对象sb（因为sum=0时候附加0进位0，结果为1附加1进位0，结果为2附加0进位1）,可以发现进位为sum/2,两个字符串指针位置都移到最前面没有数字的时候，判断是否有进位不为0，若不为0则附加到StringBuilder对象sb，真实数字是从左到右，附加到StringBuilder对象sb的时候是从右往左，所以需要反转然后转化为字符串并返回</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code>  public class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder sb=new StringBuilder();
+        int i=a.length()-1;//获取字符串a的长度下标范围（0~length-1）
+        int j=b.length()-1;//获取字符串b的长度下标范围（0~length-1）
+        int carry=0;//初始化进位为0
+        while(i&gt;=0||j&gt;=0){//i，j相当于指针，i或j大于0说明a或b当前指针位置有数字，当a和b都没有数组时停止循环
+            int sum=carry;//初始化sum为carry
+            if(i&gt;=0) sum+=a.charAt(i)-&apos;0&apos;;//获取i指针位置字符串a的数字
+            i--;//i指针位置前移一位
+            if(j&gt;=0) sum+=b.charAt(j)-&apos;0&apos;;//获取i指针位置字符串b的数字
+            j--;//j指针位置前移一位
+            sb.append(sum%2);//附加到StringBuilder对象sb
+            carry=sum/2;//求进位
+    }
+    if(carry!=0)
+        sb.append(carry);//若进位不为0附加到StringBuilder对象sb
+    return sb.reverse().toString();//反转并转化为字符串返回
+    }
+}</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/LeetCode%2067%EF%BC%9AAdd%20Binary/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode 27 Remove Element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/LeetCode%2027%20Remove%20Element/">LeetCode 27 Remove Element</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/LeetCode%2027%20Remove%20Element/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.956Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.<br>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.<br>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.<br>Example 1:<br>Given nums = [3,2,2,3], val = 3,</p>
+<p>Your function should return length = 2, with the first two elements of nums being 2.</p>
+<p>It doesn’t matter what you leave beyond the returned length.</p>
+<p>Example 2:<br>Given nums = [0,1,2,2,3,0,4,2], val = 2,</p>
+<p>Your function should return length = 5, with the first five elements of nums containing 0, 1, 3, 0, and 4.</p>
+<p>Note that the order of those five elements can be arbitrary.</p>
+<h3 id="分析题目要求："><a href="#分析题目要求：" class="headerlink" title="分析题目要求："></a>分析题目要求：</h3><ul>
+<li>在适当位置删除该值的所有实例并返回新长度。</li>
+<li>不要为另一个数组分配额外的空间，必须通过使用O（1）额外内存修改输入数组来实现。</li>
+<li>元素的顺序可以改变</li>
+</ul>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>从i数组下标i=0开始，若下标i对应的元素不是要val(要删除的值)，将其放到数组的第count个位置(初始count=0)，计数器加1，依次方式遍历数组即可得到结果。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code>class Solution {
+    public int removeElement(int[] nums, int val) {
+        int count=0;
+        //遍历数组
+        for(int i=0;i&lt;nums.length;i++){
+        //若下标i对应的元素不是要val(要删除的值)
+            if(nums[i]!=val){
+                nums[count]=nums[i]; //将其放到数组的第count个位置
+                count++;//计数器加1
+            }
+        }
+        return count;
+    }
+}</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/LeetCode%2027%20Remove%20Element/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode 26 Remove Duplicates from Sorted Array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/">LeetCode 26 Remove Duplicates from Sorted Array</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.953Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>Example 1:</p>
+<p>Given nums = [1,1,2],</p>
+<p>Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.</p>
+<p>It doesn’t matter what you leave beyond the returned length.<br>Example 2:</p>
+<p>Given nums = [0,0,1,1,1,2,2,3,3,4],</p>
+<p>Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.</p>
+<p>It doesn’t matter what values are set beyond the returned length.</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>虽然函数只返回不同元素的个数，但是该题目从nums数组和不相同元素个数两方面看结果是否正确。</strong></p>
+<p>从第一个元素（此时i=1）开始比较，若它与nuns[count]（初始时候count=0,nuns[count]即第0个元素)不相同，计数器（count）+1同时将该新值（与之前的值不同）给nums[count],原因有</p>
+<ul>
+<li>if条件判断是用nuns[count]与数组遍历中下一个元素比较，将nums[i]赋值给nums[count]，保证了下一次比较</li>
+<li>将nums[i]赋值给nums[count]，保证了最后nums数组是正确的，即nums中存放的是与之前不同的值，即没有重复元素的值</li>
+</ul>
+<p>i++，重复上述过程，可以得到正确结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int removeDuplicates(int[] nums) &#123;</span><br><span class="line">        if(nums.length==0)</span><br><span class="line">            return 0;</span><br><span class="line">        int count=0;</span><br><span class="line">        for(int i=1;i&lt;nums.length;i++)&#123;</span><br><span class="line">            if(nums[i]!=nums[count])&#123;</span><br><span class="line">                //如果不相等，计数器加1</span><br><span class="line">                count++;</span><br><span class="line">                //把这个新值给nums[count],因为if条件判断是用nuns[count]与数组遍历中下一个元素比较</span><br><span class="line">                nums[count]=nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return count+1;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/LeetCode%2026%20Remove%20Duplicates%20from%20Sorted%20Array/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java可运行程序-排序算法总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">Java可运行程序-排序算法总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="交换排序算法"><a href="#交换排序算法" class="headerlink" title="交换排序算法"></a>交换排序算法</h1><h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p> 1、概念</p>
+<p>就是根据序列中两个记录键值的比较结果来对换这两个记录在序列中的位置。</p>
+<p>2、特点</p>
+<p>将键值较大的记录向序列的尾部移动，键值较小的记录向序列的前部移动。</p>
+<h2 id="二、常用算法"><a href="#二、常用算法" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>冒泡排序、快速排序<br>说明 ： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用4,2,1,3,7,4,5,8,3,5序列进行测试</li>
+</ol>
+<h2 id="1、冒泡排序"><a href="#1、冒泡排序" class="headerlink" title="1、冒泡排序"></a>1、冒泡排序</h2><p>（1）基本思想<br>在n个待排序数组中选取待排序数列中的第一个元素x与第二个元素y进行比较，如果x&gt;y则，将个元素交换位置，否则，选取第二个元素与第三个元素进行比较，以此类推，知道最后两个元素比较完成，则完成一趟排序，此时最后一个元素已经是这个序列中最大的一个元素，第二趟排序时只需在前n-1个元素中进行即可。<br>（2）代码实现</p>
+<pre><code>public class Test {
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void bubbleSort(int[] arr) {
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            boolean flag = true; // 设置标记位，记录是否已经完成排序
+            for (int j = 0; j &lt; arr.length - i - 1; j++) {
+                if (arr[j] &gt; arr[j + 1]) { // 相邻位置依次进行比较
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    flag = false;       //排序还未完成标志位置为false
+                }
+            }
+            printArray(arr);
+            System.out.println(&quot;  &quot;);
+            if (flag) {             //当flag为true时表示已经完成排序
+                break;
+            }
+        }
+    }
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        bubbleSort(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221191111666.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="2、快速排序"><a href="#2、快速排序" class="headerlink" title="2、快速排序"></a>2、快速排序</h2><p>（1）基本思想<br>从待排序数组中选取一个元素作为关键字（这里选取待排序序列中的第一个元素作为关键字），角标为key，分别定义一个指向开始和结尾的指针l和h，如果l所指元素在h所指元素的前面，则从两端到中间将各个元素与关键字进行比较，如果height指向的元素小于等于关键字，则执行h–操作，直到l=h或者h所指元素小于关键字，如果l指向的元素大于等于关键字，则执行l++操作，直到l=h或者l指向的元素大于关键字，如果h找到小于关键字的元素并且l找到大于关键字的元素则将h和l指向的元素交换位置，然后继续从两边向中间进行比较，直到h和l指向同一个元素，将该元素与关键字交换位置，完成一趟排序，此时以关键字为界会将数组划分成两个区域，然后在分别对两段数组进行排序，直到待排序区域中只有一个元素，完成排序。<br>一句话总结，就是通过交换实现关键字左边的元素不大于关键字，关键字右边的元素不小于关键字。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+    //输出
+    static  void printArray(int a[]) {
+        int len = a.length;
+        for (int i = 0; i &lt; len; i++) {
+            System.out.print(a[i] + &quot;  &quot;);
+        }
+    }
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
+
+    }
+
+
+    //快速排序
+    public static void quickSort(int[] arr, int low, int height) {
+        int l = low;
+        int h = height;
+        int key = low;
+        while (l &lt; h) {
+            while (arr[key] &lt;= arr[h] &amp;&amp; l &lt; h) {
+                h--;
+            }
+            while (arr[key] &gt;= arr[l] &amp;&amp; l &lt; h) {
+                l++;
+            }
+            // 将小于关键字和大于关键字的元素交换位置
+            if (l &lt; h) {
+                swap(arr, l, h);
+                l++;
+                h--;
+            }
+        }
+        // 将关键字换到合适的位置
+        swap(arr, key, l);
+        // 以关键字为界限将待排序元素划分成 两个区域分别进行快速排序
+        if (low &lt; l - 1)
+            quickSort(arr, low, l - 1);
+        if (l + 1 &lt; height)
+            quickSort(arr, l + 1, height);
+        printArray(arr);
+        System.out.println(&quot; &quot;);
+
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[] = {4,2,1,3,7,4,5,8,3,5} ;
+        int low=0;
+        int height=intArray.length-1;
+        quickSort(intArray,low,height);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+
+    }
+}</code></pre><p><img src="https://img-blog.csdnimg.cn/20181221191949728.png" alt="在这里插入图片描述"><br>（3）运行结果</p>
+<p>(4)性能<br>①稳定性：不稳定<br>②时间复杂度：<br>平均性能O(nlogn) (n倍的log以2为底n的对数)<br>最坏情况O(n^2)</p>
+<h1 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h1><h2 id="一、介绍-1"><a href="#一、介绍-1" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>1、使用场景<br>有一个已经有序的数据序列，要求在这个已经排好的数据序列中插入一个数，但要求插入后此数据序列仍然有序，这个时候就要用到一种新的排序方法——插入排序法。</p>
+<p>2、基本思想<br>插入排序的基本思想是：每步将一个待排序的纪录，按其关键码值的大小插入前面已经排序的文件中适当位置上，直到全部插入完为止。</p>
+<h2 id="二、常用算法-1"><a href="#二、常用算法-1" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>直接插入、折半插入、希尔排序</p>
+<p>说明： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用4,2,1,3,7,4,5,8,3,5序列进行测试</li>
+</ol>
+<h2 id="1、直接插入"><a href="#1、直接插入" class="headerlink" title="1、直接插入"></a>1、直接插入</h2><p>（1）基本思想<br>将待排序元素x与已排序元素从后向前依次比较，找到小于等于x的元素y的位置，将从y到x之间的元素（不包括x和y）依次后移一位，并将x插入到y元素的后面，即完成一趟排序，再用相同的方法继续完成对后面元素的排序操作即可。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void straightInsertionSort(int[] arr){
+        for(int i=1; i&lt;arr.length; i++){
+            if (arr[i] &lt; arr[i-1]) {    //与前面元素进行比较
+                int temp = arr[i];
+                arr[i] = arr[i-1];      //元素后移
+                int j = i-2;
+                while (j&gt;=0 &amp;&amp; temp &lt; arr[j]) { //找到合适的位置
+                    arr[j+1] = arr[j];
+                    j--;
+                }
+                arr[j+1] = temp;        //插入到合适的位置
+            }
+            printArray(arr);                 //每趟结束打印一次数组当前顺序
+            System.out.println(&quot; &quot;);
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        straightInsertionSort(intArray);
+        //printArray(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192035561.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="2、折半插入排序（二分插入排序）"><a href="#2、折半插入排序（二分插入排序）" class="headerlink" title="2、折半插入排序（二分插入排序）"></a>2、折半插入排序（二分插入排序）</h2><p>（1）基本思想<br>通过折半查找的方式找到待排序元素的合适位置，将相应的元素依次后移，然后再将待排序元素插入，即完成一趟排序操作，再用相同的方式完成对后面元素的排序操作即可。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void binaryInsertionSort(int[] arr){
+        for (int i = 1; i &lt; arr.length; i++) {
+            //待排序元素小于前面相邻元素，需要移动位置
+            if (arr[i] &lt; arr[i-1]) {
+                int temp = arr[i];
+                arr[i] = arr[i-1];
+                //用折半查找的方式找到合适的插入位置
+                int low = 0;
+                int height = i-2;
+                while(low &lt;= height){
+                    //不用(low+height）/2是为了防止low+height的值发生溢出
+                    int mid = low+(height-low)/2;
+                    if (temp &lt; arr[mid]) {
+                        height = mid-1;
+                    }else{
+                        low = mid +1;
+                    }
+                }
+                //将元素一次后移一位
+                for(int j=i-2; j&gt;=height+1; j--){
+                    arr[j+1] = arr[j];
+                }
+                arr[height+1] = temp;
+            }
+            printArray(arr);
+            System.out.println(&quot;  &quot;);
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        binaryInsertionSort(intArray);
+        //printArray(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+
+    }
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192114294.png" alt="在这里插入图片描述"></p>
+<p>(4)性能<br>①稳定性：稳定<br>②时间复杂度：O(n^2)</p>
+<h2 id="3、希尔排序（缩小增量排序）"><a href="#3、希尔排序（缩小增量排序）" class="headerlink" title="3、希尔排序（缩小增量排序）"></a>3、希尔排序（缩小增量排序）</h2><p>（1）基本思想<br>将待排序元素以步长d分成若干组，距离为d的元素在同一组，并在组内进行直接插入排序，所有组都完成一次排序以后，缩小步长，并重复动作，直到步长d=1后完成排序。<br>这里初始步长设置为数组长度的一般，每完成一次排序后，步长变为原来的一半。</p>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    public static void ShellSort(int[] arr){
+        int d = arr.length/2;               //步长
+        while (d &gt;= 1) {
+            System.out.println(&quot;步长为：&quot;+d);
+            //每趟按照步长d进行直接插入排序
+            for (int i = d; i &lt; arr.length; i+=d) {
+                if (arr[i] &lt; arr[i-d]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i-d];
+                    int j = i-2*d;
+                    while(j&gt;=0 &amp;&amp; temp &lt; arr[j]){
+                        arr[j+d] = arr[j];
+                        j-=d;
+                    }
+                    arr[j+d] = temp;
+                }
+                printArray(arr);
+                System.out.println(&quot;  &quot;);
+            }
+            d /= 2;
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {4,2,1,3,7,4,5,8,3,5} ;
+        ShellSort(intArray);
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+ }</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192251529.png" alt="在这里插入图片描述"><br>(4)性能<br>①稳定性：不稳定<br>②时间复杂度：希尔排序的时效分析很难，有人在大量的试验基础上推出，当n在某个特定范围内，希尔排序所需的比较次数和移动次数约为n^1.3，比较次数和移动次数还依赖于步长因子序列的选取。目前还没有选取最好的步长因子序列的方法，步长因子有取奇数的，也有取质数的，最后一个步长因子必须是1。</p>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>一、介绍<br>基数排序（英语：Radix sort）是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。</p>
+<p>从低位关键码起，按关键码的不同值将序列中的记录“分配”到RADIX个队列（组）中，然后再“收集”，称之为一趟排序，第一趟之后，排序表中的记录已按最低位关键码有序，再次对最低位关键码进行一趟“分配”和“收集”如此直到对最高位关键码进行一趟“分配”和“收集”，则排序表按关键字有序。</p>
+<p>比如：对278、109、63、930、589、184、505、269、8、83进行排序<br>①因为是对10进制整数进行排序，为了方便我们以10为基数进行排序<br>②为了让位数保持一致，先将位数不够的在高位进行补零操作，变成以下数字：278、109、063、930、589、184、505、269、008、083。<br>③先按照个位数字进行分组，共有9组（0~9），结果如下<br>0：930<br>1：<br>2：<br>3：063、083<br>4：184<br>5：505<br>6：<br>7：<br>8：278、008<br>9：109、589、269<br>将分组后的数据按顺序进行收集：<br>930、063、083、184、505、278、008、109、589、269<br>④对上面收集后的数据按照十位进行分组，结果如下：<br>0：505、008、109<br>1：<br>2：<br>4：<br>5：<br>6：063、269<br>7：278<br>8：083、184、589<br>9：<br>将分组后的数据按顺序进行收集：<br>505、008、109、930、063、269、278、083、184、589<br>⑤对上面收集后的数据按照百位进行分组，结果如下：<br>0：008、063、083<br>1：109、184<br>2：269、278<br>3：<br>4：<br>5：505、589<br>6：<br>7：<br>8：<br>9：930<br>将分组后的数据按顺序进行收集：<br>008、063、083、109、184、269、278、505、589、930<br>到此我们已经得到了有序的数据序列</p>
+<p>二、算法实现</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192353999.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192402548.png" alt="在这里插入图片描述"></p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    /**
+     * 基数排序
+     * @param elements  待排序数组
+     * @param radix     基数
+     * @param bitNum    数据的位数
+     */
+    public static void RadixSort(MyElement[] elements, int radix, int bitNum){
+        int n = 1;
+        //初始化头指针数组
+        MyElementIndex[] heads = new MyElementIndex[radix];
+        for (int i = 0; i &lt; heads.length; i++) {
+            heads[i] = new MyElementIndex();
+        }
+        for(int i=0; i&lt;bitNum; i++){
+            //将数据按照关键字进行分组
+            for(int j=0; j&lt;elements.length; j++){
+                int k = elements[j].num/n%10;
+                if (heads[k].head == null) {
+                    heads[k].head = elements[j];
+                }else{
+                    heads[k].tail.next = elements[j];
+                }
+                heads[k].tail = elements[j];
+                heads[k].tail.next = null;
+            }
+            //将分组后的数据重新收集
+            int k = 0;
+            for(int j=0; j&lt;heads.length; j++){
+                while (heads[j].head != null) {
+                    elements[k++] = heads[j].head;
+                    heads[j].head = heads[j].head.next;
+                }
+            }
+            System.out.println(&quot;第&quot;+(i+1)+&quot;趟：&quot;);
+            for (int j = 0; j &lt; elements.length; j++) {
+                System.out.print(elements[j].num+&quot; &quot;);
+            }
+            System.out.println();
+            n *= 10;
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {278,109,63,930,589,184,505,269,8,83} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+
+        int num=intArray.length;
+        MyElement [] myElement=new MyElement[num];
+        for(int i=0;i&lt;num;i++){
+            myElement[i] = new MyElement();
+            myElement[i].num=intArray[i];
+            //myElement[i].next=null;
+        }
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        RadixSort(myElement,10,3);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+}</code></pre><p>三、运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192415115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>四、性能分析<br>稳定性：稳定<br>时间复杂度：分配一趟时间复杂度为O(n)，收集一趟时间复杂度为O(RADIX)，关键码为bitNum位，共需要bitNum趟，所以时间复杂度为O(bitNum*(n+RADIX))</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>一、介绍<br>1、概念<br>归并操作（merge），也叫归并算法，指的是将两个已经排序的序列合并成一个序列的操作。归并排序算法依赖归并操作。<br>归并排序（MERGE-SORT）是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
+<p>2、基本思想</p>
+<p>只有一个元素的表总是有序的，所以将表arr[1…n]，看做n个长度len=1的有序子表，对相邻的两个有序子表两两合并到temp[1…n]中，使之生成表长len=2的有序表，在进行两两合并，直到最后生成表长为n的有序表，整个过程需要log2n（log以2为底n的对数）趟。</p>
+<p>归并过程中有个需要解决的问题就是分组问题，因为表长不总是2的整数幂，这样最后一组就不能保证是表长为len的有序表，也不能保证每趟排序中都有偶数个有序子表。</p>
+<p>二、算法实现</p>
+<pre><code>public class Test {
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+    /**
+     * 归并排序 需要考虑三种情况 1、正好可以分成整个的偶数组 2、可以分成偶数组，但是最后一组中元素数量不足 3、只能分成奇数组
+     *
+     * @param arr
+     */
+    public static void mergeSort(int[] arr) {
+        for (int i = 1; i &lt; arr.length; i*=2) {
+            mergePass(arr, i);
+        }
+    }
+
+    /**
+     * 从arr中归并到temp中
+     *
+     * @param arr
+     * @param len 本趟归并中有序表的长度
+     */
+    public static void mergePass(int[] arr, int len) {
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;len:&quot;+len);
+
+        int i;
+        int[] temp = new int[arr.length];
+        for (i = 0; i + 2 * len-1 &lt; arr.length; i = i + 2 * len) {
+            merge(arr, temp, i, i + len - 1, i + 2 * len - 1);// 对两个长度为len的表进行合并
+        }
+        if (i + len - 1 &lt; arr.length - 1) {// 剩余长度不够len，当剩余的总个数大于len
+            merge(arr, temp, i, i + len - 1, arr.length - 1);
+        } else if (i &lt;= arr.length - 1) {// 剩余长度不足len
+            while (i &lt;= arr.length - 1) {
+                temp[i] = arr[i++];
+            }
+        }
+        System.arraycopy(temp, 0, arr, 0, arr.length);
+        printArray(arr);
+    }
+
+    //对两个有序子表进行归并
+    public static void merge(int[] arr, int[] temp, int low, int mid, int height) {
+        int i = low;
+        int j = mid + 1;
+        int k = low;
+        while (i &lt;= mid &amp;&amp; j &lt;= height) {
+            if (arr[i] &gt; arr[j]) {
+                temp[k++] = arr[j++];
+            } else {
+                temp[k++] = arr[i++];
+            }
+        }
+        while (i &lt;= mid) {
+            temp[k++] = arr[i++];
+        }
+        while (j &lt;= height) {
+            temp[k++] = arr[j++];
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {9,4,2,1,3,7,4,5,8,3,10,0} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        mergeSort(intArray);//归并排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>三、运行结果<br><img src="https://img-blog.csdnimg.cn/2018122119253424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>四、性能分析<br>稳定性：稳定<br>时间复杂度：O(nlogn) (n倍的log以2为底n的对数)</p>
+<h1 id="选择排序算法"><a href="#选择排序算法" class="headerlink" title="选择排序算法"></a>选择排序算法</h1><h2 id="一、介绍-2"><a href="#一、介绍-2" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>1、基本思想<br>每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。</p>
+<p>2、特点<br>选择排序每次交换一对元素，它们当中至少有一个将被移到其最终位置上，因此对n个元素的表进行排序总共进行至多n-1次交换。</p>
+<h2 id="二、常用算法-2"><a href="#二、常用算法-2" class="headerlink" title="二、常用算法"></a>二、常用算法</h2><p>说明 ： </p>
+<ol>
+<li>以下方法最后结果均按照升序排列 </li>
+<li>用8,5,2,6,9,3,1,4,0,7序列进行测试</li>
+</ol>
+<h2 id="1、简单选择排序"><a href="#1、简单选择排序" class="headerlink" title="1、简单选择排序"></a>1、简单选择排序</h2><p>（1）基本思想<br>在对n个元素进行一次遍历，找到其中最小的元素放到最前面，然后在剩下的n-1个操作中重复此操作，直到只剩下一个元素。<br>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
+
+    }
+
+    public static void simpleSelectionSort(int[] arr) {
+        for (int i = 0; i &lt; arr.length-1; i++) {
+            int script = i;
+            for (int j = i + 1; j &lt; arr.length; j++) {
+                if (arr[script] &gt; arr[j]) {
+                    script = j; // 记录值最小的元素下标
+                }
+            }
+            if (script != i) { // 将最小的元素放到最前面
+                swap(arr, script, i);
+            }
+            System.out.println(&quot;  &quot;);
+            printArray(arr);
+        }
+    }
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {8,5,2,6,9,3,1,4,0,7} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        simpleSelectionSort(intArray);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果<br><img src="https://img-blog.csdnimg.cn/20181221192620749.png" alt="在这里插入图片描述"></p>
+<h2 id="2、堆排序"><a href="#2、堆排序" class="headerlink" title="2、堆排序"></a>2、堆排序</h2><p>（1）基本思想<br>将n个元素建成大顶堆，然后将堆顶元素和最后一个元素交换位置，此时最大的元素已经到了预定的位置，再将剩下的n-1一个元素重新调整成为大顶堆，直到最后一个元素调整到相应的位置。<br>需要解决的问题： </p>
+<ul>
+<li>n个待排序元素建成堆； </li>
+<li>输出堆顶元素后，调整剩余n-1 个元素，使其成为一个新堆。</li>
+</ul>
+<p>（2）代码实现</p>
+<pre><code>public class Test {
+
+    static  void printArray(int a[]){
+        int len = a .length;
+        for (int i = 0; i&lt;len; i++) {
+            System.out.print(a[i]+&quot;  &quot;);
+        }
+    }
+
+
+    static  void swap(int a[],int m, int n) {
+        int tmp;
+        tmp=a[m];
+        a[m]=a[n];
+        a[n]=tmp;
+
+    }
+
+    /**
+     * 堆排序
+     *
+     * @param arr
+     */
+    public static void heapSort(int[] arr) {
+        buildHeap(arr, arr.length);
+        printArray(arr);
+        for (int i = arr.length-1; i &gt; 0; i--) {
+            // 将堆顶元素与最后一个元素交换
+            swap(arr, 0, i);
+            //在剩下的n-1个元素重新调整成大顶堆
+            heapAdjust(arr, 0, i);
+            System.out.println(&quot;  &quot;);
+            printArray(arr);
+
+        }
+    }
+
+    /**
+     * 调整成大顶堆
+     *
+     * @param arr
+     * @param root
+     */
+    public static void heapAdjust(int[] arr, int root, int length) {
+        int child = root * 2 + 1; // 数组从0角标开始时，左孩子的角标
+        while (child &lt; length) {// 当左孩子不是最后一个节点
+            // 选取左右孩子中较大的元素和父节点的值进行交换
+            if (child+1&lt;length &amp;&amp; arr[child] &lt; arr[child + 1]) {//有右孩子,且右孩子的值大于左孩子
+                child++;
+            }
+            if (arr[child] &gt; arr[root]) { // 较大的子元素的值大于父元素
+                swap(arr, child, root);
+                root = child;
+                child = root * 2 + 1;
+            } else { // 不需要调整，跳出循环
+                break;
+            }
+        }
+    }
+
+    /**
+     * 建堆
+     * @param arr
+     * @param length
+     */
+    public static void buildHeap(int[] arr, int length) {
+        for (int i = (length - 2) / 2; i &gt;= 0; i--) {
+            heapAdjust(arr, i, length);
+        }
+    }
+
+
+    public static void main(String args[ ] ) {
+        long startTime=System.nanoTime();   //获取开始时间
+        int intArray[ ] = {8,5,2,6,9,3,1,4,0,7} ;
+        System.out.println(&quot;原始数据&quot;);
+        printArray(intArray);
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;排序&quot;);
+        heapSort(intArray);//排序
+        long endTime=System.nanoTime(); //获取结束时间
+        System.out.println(&quot;  &quot;);
+        System.out.println(&quot;程序运行时间： &quot;+(endTime-startTime)+&quot;ns&quot;);
+    }
+
+}</code></pre><p>（3）运行结果</p>
+<p><img src="https://img-blog.csdnimg.cn/20181221192707141.png" alt="在这里插入图片描述"></p>
+<p>参考博客<a href="https://blog.csdn.net/qq_30496695" target="_blank" rel="noopener">https://blog.csdn.net/qq_30496695</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/Java%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java run()与start()区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/18/Java%20run()%E4%B8%8Estart()%E5%8C%BA%E5%88%AB/">Java run()与start()区别</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/18/Java%20run()%E4%B8%8Estart()%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:03.926Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="调用start方法方可启动线程，真正实现了多线程；而run方法只是thread的一个普通方法调用还是在当前线程里执行，并没有增加线程的数量。"><a href="#调用start方法方可启动线程，真正实现了多线程；而run方法只是thread的一个普通方法调用还是在当前线程里执行，并没有增加线程的数量。" class="headerlink" title="调用start方法方可启动线程，真正实现了多线程；而run方法只是thread的一个普通方法调用还是在当前线程里执行，并没有增加线程的数量。"></a>调用start方法方可启动线程，真正实现了多线程；而run方法只是thread的一个普通方法调用还是在当前线程里执行，并没有增加线程的数量。</h2><h2 id="start"><a href="#start" class="headerlink" title="start()"></a>start()</h2><p>用start()来启动线程，真正实现了多线程，就算出现start()方法也是<strong>继续执行下面的代码而不需等待run()体代码执行完</strong>,如下代码无需等待pong()方法输出B而是继续执行下面的输出A</p>
+<pre><code>public class Test {
+    public static void main(String args[]) {
+        Thread t = new Thread() {
+            public void run() {
+                pong();
+            }
+        };
+        t.start();
+        System.out.print(&quot;A&quot;);
+    }
+    static void pong() {
+        System.out.print(&quot;B&quot;);
+    }
+}</code></pre><p>结果：<br><img src="https://img-blog.csdnimg.cn/20190109201816468.png" alt="在这里插入图片描述"></p>
+<p>通过调用Thread类的 start()方法来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法，这里方法 run()称为线程体，它包含了要执行的这个线程的内容，Run方法运行结束，此线程随即终止。</p>
+<h2 id="run"><a href="#run" class="headerlink" title="run()"></a>run()</h2><p>run()方法只是类的一个普通方法而已，如果直接调用Run方法，程序中依然只有主线程这一个线程，其程序执行路径还是只有一条，还是要顺序执行，还是要等待run方法体执行完毕后才可继续执行下面的代码，没有达到多线程的目的。</p>
+<pre><code>public class Test {
+     public static void main(String args[]) {
+         Thread t = new Thread() {
+             public void run() {
+                 pong();
+             }
+         };
+         t.run();
+         System.out.print(&quot;A&quot;);
+     }
+
+     static void pong() {
+         System.out.print(&quot;B&quot;);
+     }
+
+}</code></pre><p>结果：<br><img src="https://img-blog.csdnimg.cn/20190109201902102.png" alt="在这里插入图片描述"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/18/Java%20run()%E4%B8%8Estart()%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 

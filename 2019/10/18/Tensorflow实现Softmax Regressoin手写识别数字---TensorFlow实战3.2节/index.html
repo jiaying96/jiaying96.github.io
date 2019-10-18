@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | blog</title>
+  <title>Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="mnist数据集下载：http:&#x2F;&#x2F;yann.lecun.com&#x2F;exdb&#x2F;mnist&#x2F; from tensorflow.examples.tutorials.mnist import input_data  # 导入 MNIST 数据 mnist = input_data.read_data_sets(&amp;quot;MNIST_data&#x2F;&amp;quot;, one_hot=True) import t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;hello-world&#x2F;index.html">
+<meta property="og:title" content="Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;18&#x2F;Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82&#x2F;index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="mnist数据集下载：http:&#x2F;&#x2F;yann.lecun.com&#x2F;exdb&#x2F;mnist&#x2F; from tensorflow.examples.tutorials.mnist import input_data  # 导入 MNIST 数据 mnist = input_data.read_data_sets(&amp;quot;MNIST_data&#x2F;&amp;quot;, one_hot=True) import t">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-18T08:40:01.490Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20190110115848430.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20190110115911858.png">
+<meta property="og:updated_time" content="2019-05-08T14:03:23.314Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20190110115848430.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="blog" type="application/atom+xml">
   
@@ -152,39 +155,168 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Tensorflow实现Softmax Regressoin手写识别数字---TensorFlow实战3.2节
     </h1>
   
 
         
-        <a href="/2019/10/18/hello-world/" class="archive-article-date">
-  	<time datetime="2019-10-18T08:40:01.490Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
+        <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82/" class="archive-article-date">
+  	<time datetime="2019-10-18T08:54:04.003Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p>mnist数据集下载：<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">http://yann.lecun.com/exdb/mnist/</a></p>
+<pre><code>from tensorflow.examples.tutorials.mnist import input_data
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+# 导入 MNIST 数据
+mnist = input_data.read_data_sets(&quot;MNIST_data/&quot;, one_hot=True)
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+# 查看数据集情况         
+#train训练集 test测试集  validation验证集
+#                                   样本数  多少维特征
+print(mnist.train.images.shape)      #(55000, 784)     图像是28px*28px  这28个点展开成一维的结果为28*28=784
+print(mnist.train.labels.shape)      #(55000, 10)
+print(mnist.test.images.shape)       #(10000, 784)
+print(mnist.test.labels.shape)       #(10000, 10)
+print(mnist.validation.images.shape) #(5000, 784)
+print(mnist.validation.labels.shape) #(5000, 10)
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+&apos;&apos;&apos; 
+训练数据的特征：是一个55000*784的Tensor    
+55000是第一个维度，是图片的编号     784是第二个维度，是图片中像素点的编号
+训练数据Label的特征：是一个55000*10的Tensor    
+55000是第一个维度，是图片的编号     10是第二个维度，有10个种类（0-9），只有一个值是1，其余为0 数值i代表下标为i对应的位置为1
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+多分类任务：Softmax Regression模型 原理：将可以判定为某类的特征相加，将这些特征转化为判定这一类的概率
+
+&apos;&apos;&apos;
+
+#保存的图片路径
+picPath=&apos;images&apos;
+# 打印训练集的前10张图片
+l = len(mnist.train.images[1])
+# 开平方  l_为28
+l0 = int(np.sqrt(l))
+
+#图片
+images = mnist.train.images
+# 标签
+labels = mnist.train.labels
+
+for i in range(10):
+    plt.subplot(2, 5, i + 1)
+    # 显示图片 imshow
+    plt.imshow(images[i].reshape(l0, l0))
+    # 添加标题为对应的label
+    # np.where 返回对应的索引
+    plt.title(int(np.where(labels[i] == 1)[0]))
+    # 保存 imsave
+    picName = str(i + 1) + &apos;.jpg&apos;
+    plt.imsave(picPath + &quot;/&quot; + picName, images[i].reshape((l0, l0)))
+plt.show()
+
+
+
+
+&apos;&apos;&apos; 在训练集上训练模型，在验证集上检验效果并决定何时完成训练，在测试集上评测模型的效果&apos;&apos;&apos; 
+
+
+&apos;&apos;&apos; InteractiveSession方法将这个session注册为默认的session    ！不同session之间的数据与运算应该是相对独立的&apos;&apos;&apos; 
+sess = tf.InteractiveSession()
+
+&apos;&apos;&apos; palceholde为输入数据的地方 tf.float32是数据类型  [None, 784]None表示不限制条数的输入 784代表每条输入是一个784维度的向量&apos;&apos;&apos; 
+x = tf.placeholder(tf.float32, [None, 784])  
+
+&apos;&apos;&apos; 
+存储数据的Tensor一旦使用掉就会消失，但是用来存储模型参数的Variable在模型训练迭代中是持久化的，长期存在并且在每轮迭代中被更新
+Variable用来存储模型参数
+&apos;&apos;&apos; 
+W = tf.Variable(tf.zeros([784, 10]))
+b = tf.Variable(tf.zeros([10]))
+
+&apos;&apos;&apos; 
+1.定义算法公式 就是神经网络前向传播（forward）时的计算
+算法Softmax Regression
+matmul为矩阵乘法  y=softmax(Wx+b)  
+&apos;&apos;&apos;   
+y = tf.nn.softmax(tf.matmul(x, W) + b)
+
+
+
+&apos;&apos;&apos; 
+2.定义loss  损失函数（loss）为cross-entropy
+
+palceholde为输入数据的地方 tf.float32是数据类型  [None, 784]None表示不限制条数的输入 10代表每条输入是一个10维度的向量
+输入是真实的label(y_ ) ,用来计算损失函数cross-entropy 即loss
+H=-求和（yi_log(yi)） 
+tf.reduce_mean用来对每个batch数据结果求均值
+reduction_indices参数，表示函数的处理维度。当没有这个参数时取默认值None，将把input_tensor降到0维，也就是一个数
+reduction_indices=[1]代表横向压缩成一个数
+&apos;&apos;&apos;
+y_ = tf.placeholder(tf.float32, [None, 10])
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+&apos;&apos;&apos;  
+3.选定优化器，并制定优化器优化loss
+优化算法采用随机梯度下降SGD（Stochastic Gradient Descent）
+定义好优化算法后，Tensorflow根据计算图自动求导，并根据反向传播算法进行训练，在每一轮迭代时更显参数来减小loss值
+0.5为设置的学习率 优化目标设定为cross-entropy          
+&apos;&apos;&apos;  
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+&apos;&apos;&apos; 全局参数初始化器，直接执行run方法&apos;&apos;&apos; 
+tf.global_variables_initializer().run()
+&apos;&apos;&apos;  
+4.迭代的对数据进行训练
+随机抽取100个样本构成一个mini-batch,并feed给palceholder,调用train_step对这些样本进行训练
+随机梯度下降：使用一小部分样本进行训练（每次使用全部样本是传统的梯度下降）
+
+why随机梯度下降?
+如果每次都使用全部样本，计算量太大，有时也不容易跳出局部最优，只使用一小部分进行随机梯度下降，绝大部分比使用全部样本训练的收敛速度快很多
+&apos;&apos;&apos;
+for i in range(1000):
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+    train_step.run({x: batch_xs, y_: batch_ys})
+
+&apos;&apos;&apos;
+5.在测试集或者验证集上对准确率进行测评，本例是在测试集
+
+（1）在对模型的准确率进行验证
+tf.argmax：从一个tensor中寻找最大值的序号 
+tf.argmax(y, 1)求该样本在各个预测数字中概率最大的那一个 
+tf.argmax(y_, 1)是样本的真是数字类别
+tf.equal判断预测的数字类别是否是正确的类别，最后返回计算分类是否正确的操作correct_prediction
+
+注：
+Tensorflow中的计算可以表示为一个有向图（或计算图），每一个运算操作作为一个节点，节点与节点之间的连接成为边
+在计算图的边中流动（flow）的数据称为张量（tensor）
+&apos;&apos;&apos;
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+&apos;&apos;&apos;
+（2）统计全部预测的accuracy 
+先用tf.cast将之前correct_prediction输出的bool值转换为float32，再求平均
+&apos;&apos;&apos;
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+&apos;&apos;&apos;
+（3）将测试数据的特征和labe输入测评流程accuracy,计算模型在测试集上的准确率，再将结果打印出来
+accuracy.eval:
+在一个Seesion里面“评估”tensor的值（其实就是计算），首先执行之前的所有必要的操作来产生这个计算这个tensor需要的输入，
+然后通过这些输入产生这个tensor。在激发tensor.eval()这个函数之前，tensor的图必须已经投入到session里面，
+或者一个默认的session是有效的，或者显式指定session.
+&apos;&apos;&apos;
+print(accuracy.eval({x: mnist.test.images, y_: mnist.test.labels}))</code></pre><p><img src="https://img-blog.csdnimg.cn/20190110115848430.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDEzNTI4Mg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190110115911858.png" alt="在这里插入图片描述"></p>
 
       
 
@@ -264,7 +396,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0Softmax%20Regressoin%E6%89%8B%E5%86%99%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97---TensorFlow%E5%AE%9E%E6%88%983.2%E8%8A%82/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -278,15 +410,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8---TensorFlow%E5%AE%9E%E6%88%984.2%E8%8A%82/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/10/18/Tensorflow%E5%AE%9E%E7%8E%B0%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C---TensorFlow%E5%AE%9E%E6%88%985.2%E8%8A%82/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Tensorflow实现自编码器---TensorFlow实战4.2节
+          Tensorflow实现卷积神经网络---TensorFlow实战5.2节
         
       </div>
     </a>
   
+  
+    <a href="/2019/10/18/tensorboard%E7%94%9F%E6%88%90%E7%9A%84%E7%BD%91%E5%9D%80%E6%89%93%E4%B8%8D%E5%BC%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tensorboard生成的网址打不开的解决方法</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
